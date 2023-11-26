@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      # discovery:
+      #     locator:
+      #       enabled: true
+      routes:
+      - id: functionService
+        uri: lb://function
+        predicates:
+          - Path=/function/**
+      - id: reactiveService
+        uri: lb://reactive
+        predicates:
+          - Path=/reactive/**
