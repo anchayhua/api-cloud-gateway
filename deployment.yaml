@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-cloud-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-cloud-gateway
+  template:
+    metadata:
+      labels:
+        app: api-cloud-gateway
+    spec:
+      containers:
+      - name: api-cloud-gateway
+        image: anchayhua/api-cloud-gateway
+        ports:
+        - containerPort: 8080
