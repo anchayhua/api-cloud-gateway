@@ -1,34 +1,38 @@
-# spring:
-#   cloud:
-#     gateway:
-#       routes:
-#         - id: functionService
-#           uri: ${FUNCTION_ROUTE_URI:http://localhost:8081}
-#           predicates:
-#             - Path=/function/**
-#           filters:
-#             - name: AddResponseHeader
-#               args:
-#                 name: X-Powered-By
-#                 value: Quique
-#         - id: reactiveService
-#           uri: ${REACTIVE_ROUTE_URI:http://localhost:8082}
-#           predicates:
-#             - Path=/reactive/**
-#             # - Path=/greet/**
-#           filters:
-#             # - PrefixPath=/reactive
-#             - name: AddResponseHeader
-#               args:
-#                 name: X-Powered-By
-#                 value: Quique
-# management:
-#   endpoints:
-#     web:
-#       exposure:
-#         include: "*"
-#   endpoint:
-#     health:
-#       show-details: always
-#     gateway:
-#       enabled: true
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: functionService
+          uri: ${FUNCTION_ROUTE_URI:http://localhost:8081}
+          predicates:
+            - Path=/function/**
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 1
+            - name: AddResponseHeader
+              args:
+                name: X-Powered-By
+                value: Quique Gateway Service Function
+        - id: reactiveService
+          uri: ${REACTIVE_ROUTE_URI:http://localhost:8082}
+          predicates:
+            - Path=/reactive/**
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 1
+            - name: AddResponseHeader
+              args:
+                name: X-Powered-By
+                value: Quique Gateway Service Reactive
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true

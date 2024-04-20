@@ -13,24 +13,30 @@ public class ApiCloudGatewayApplication {
 		SpringApplication.run(ApiCloudGatewayApplication.class, args);
 	}
 
-	@Bean
-	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route(r -> r.path("/function/**")
-						.filters(f -> f
-							// .prefixPath("/function")
-							.addResponseHeader("X-Powered-By","Quique Gateway Service")
-						)
-						.uri("http://localhost:8081")
-				)
-				.route(r -> r.path("/reactive/**")
-						.filters(f -> f
-							// .prefixPath("/reactive")
-							.addResponseHeader("X-Powered-By","Quique Gateway Service")
-						)
-						.uri("http://localhost:8082")
-				)
-				.build();
-	}
+	// @Bean
+	// public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+	// 	return builder.routes()
+	// 			.route(r -> r.path("/function/**")
+	// 					.filters(f -> f
+	// 						// .prefixPath("/function")
+	// 						.stripPrefix(1)
+	// 						.addResponseHeader("X-Powered-By","Quique Gateway Service Function")
+	// 					)
+	// 					.uri("http://localhost:8081")
+	// 			)
+	// 			.route(r -> r.path("/reactive/**")
+	// 					.filters(f -> f
+	// 						// .prefixPath("/reactive")
+	// 						.stripPrefix(1)
+	// 						.addResponseHeader("X-Powered-By","Quique Gateway Service Reactive")
+	// 					)
+	// 					.uri("http://localhost:8082")
+	// 			)
+	// 			.build();
+	// }
 	
+	/*
+	 * http://localhost:8080/function/api/greeting
+	 * http://localhost:8080/reactive/api/greet
+	 */
 }
